@@ -1,5 +1,5 @@
 class Node
-  attr_reader :data, :left, :right
+  attr_accessor :data, :left, :right
 
   def initialize(data, left = nil, right = nil)
     @data = data
