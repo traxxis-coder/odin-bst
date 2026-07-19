@@ -37,6 +37,10 @@ class Tree
     level_order_rec(node.right, &block)
   end
 
+  def include?(value)
+    level_order.any? { |node| node.data == value }
+  end
+
   private
 
   def build_tree(array, start_index = 0, end_index = (array.size - 1))

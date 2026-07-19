@@ -58,4 +58,25 @@ describe Tree do
       expect(actual).to eq(expected)
     end
   end
+
+  describe '#include?' do
+    subject(:including_tree) { described_class.new([4, 2, 6, 7, 9, 3, 0]) }
+
+    it 'returns true for an included value' do
+      expect(including_tree.include?(7)).to be true
+    end
+
+    it 'returns false for an absent value' do
+      expect(including_tree.include?(10)).to be false
+    end
+  end
+
+  describe '#insert' do
+    subject(:inserting_tree) { described_class.new([1, 3, 4]) }
+
+    it 'inserts a new value in the correct spot' do
+      inserting_tree.insert(2)
+      expect(inserting_tree.root.left.right.data).to eq 2
+    end
+  end
 end
