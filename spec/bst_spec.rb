@@ -78,5 +78,33 @@ describe Tree do
       inserting_tree.insert(2)
       expect(inserting_tree.root.left.right.data).to eq 2
     end
+
+    it 'doesn\'t insert a duplicate value' do
+      inserting_tree.insert(1)
+      expected = [3, 1, 4]
+      actual = []
+      inserting_tree.level_order { |node| actual << node.data }
+      expect(actual).to eq expected
+    end
+  end
+
+  describe '#delete' do
+    subject(:deleting_tree) { described_class.new([5, 6, 3, 7]) }
+
+    it 'removes given node with 2 branches from tree' do
+      deleting_tree.delete(5)
+      expected = [6, 3, 7]
+      actual = []
+      deleting_tree.level_order { |node| actual << node.data }
+      expect(actual).to eq expected
+    end
+
+    it 'removes given node with 1 child from node' do
+      deleting_tree.delete(6)
+      expected = [5, 3, 7]
+      actual = []
+      deleting_tree.level_order { |node| actual << node.data }
+      expect(actual).to eq expected
+    end
   end
 end
