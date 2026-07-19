@@ -24,4 +24,26 @@ describe Tree do
       end
     end
   end
+
+  describe '#level_order' do
+    subject(:levelled_tree) { described_class.new([1, 2, 3]) }
+
+    it 'traverses the nodes in level order and yields each to a block' do
+      expected = [2, 1, 3]
+      actual = []
+      levelled_tree.level_order { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+  end
+
+  describe '#level_order_rec' do
+    subject(:recursive_levelled_tree) { described_class.new([1, 2, 3]) }
+
+    it 'traverses the nodes in level order and yields each to a block' do
+      expected = [2, 1, 3]
+      actual = []
+      recursive_levelled_tree.level_order_rec { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+  end
 end
