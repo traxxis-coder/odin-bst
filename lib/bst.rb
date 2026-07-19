@@ -16,7 +16,7 @@ class Tree
   end
 
   def level_order
-    return Enumerator unless block_given?
+    return to_enum(:level_order) unless block_given?
 
     q = [@root]
 
@@ -29,6 +29,7 @@ class Tree
   end
 
   def level_order_rec(node = @root, &block)
+    return to_enum(:level_order_rec) unless block_given?
     return if node.nil?
 
     yield node if block_given?

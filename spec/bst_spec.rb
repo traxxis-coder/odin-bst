@@ -34,6 +34,12 @@ describe Tree do
       levelled_tree.level_order { |node| actual << node.data }
       expect(actual).to eq(expected)
     end
+
+    it 'returns an Enumerator if no block biven' do
+      expected = [4, 2, 6]
+      actual = levelled_tree.level_order.map { |n| n.data * 2 }
+      expect(actual).to eq(expected)
+    end
   end
 
   describe '#level_order_rec' do
@@ -43,6 +49,12 @@ describe Tree do
       expected = [2, 1, 3]
       actual = []
       recursive_levelled_tree.level_order_rec { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+
+    it 'returns an Enumerator if no block biven' do
+      expected = [4, 2, 6]
+      actual = recursive_levelled_tree.level_order_rec.map { |n| n.data * 2 }
       expect(actual).to eq(expected)
     end
   end
