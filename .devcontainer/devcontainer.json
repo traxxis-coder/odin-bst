@@ -1,6 +1,6 @@
 {
   "name": "Odin Ruby Environment",
-  //"image": "://microsoft.com",
+  "image": "://microsoft.com",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true
