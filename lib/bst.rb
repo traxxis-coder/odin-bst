@@ -111,6 +111,17 @@ class Tree
     measure_height(node)
   end
 
+  def depth(value, node = @root, count = 0)
+    return nil unless include?(value)
+    return count if node.data == value
+
+    if node.data > value
+      depth(value, node.left, count + 1)
+    else
+      depth(value, node.right, count + 1)
+    end
+  end
+
   private
 
   def build_tree(array, start_index = 0, end_index = (array.size - 1))

@@ -170,4 +170,16 @@ describe Tree do
       expect(high_tree.height(0)).to be nil
     end
   end
+
+  describe '#depth' do
+    subject(:deep_tree) { described_class.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]) }
+
+    it 'returns the number of edges to reach a given value from the root' do
+      expect(deep_tree.depth(6)).to eq 3
+    end
+
+    it 'returns nil if the tree doesn\'t include the value' do
+      expect(deep_tree.depth(0)).to be nil
+    end
+  end
 end
