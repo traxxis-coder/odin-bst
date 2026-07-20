@@ -108,7 +108,7 @@ class Tree
     return nil unless include?(value)
 
     node = find_node(value)
-    measure_height(node).max
+    measure_height(node)
   end
 
   private
@@ -143,6 +143,6 @@ class Tree
     measure_height(node.left, count + 1, array)
     measure_height(node.right, count + 1, array)
 
-    array
+    array.max
   end
 end
