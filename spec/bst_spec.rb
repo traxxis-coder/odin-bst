@@ -107,4 +107,21 @@ describe Tree do
       expect(actual).to eq expected
     end
   end
+
+  describe '#inorder' do
+    subject(:ordered_tree) { described_class.new([5, 6, 2, 1, 9]) }
+
+    it 'traverses the nodes in order and yields each to a block' do
+      expected = [1, 2, 5, 6, 9]
+      actual = []
+      ordered_tree.inorder { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+
+    it 'returns an Enumerator if no block biven' do
+      expected = [2, 4, 10, 12, 18]
+      actual = ordered_tree.inorder.map { |n| n.data * 2 }
+      expect(actual).to eq(expected)
+    end
+  end
 end

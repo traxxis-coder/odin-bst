@@ -18,5 +18,5 @@
       }
     }
   },
-  "postCreateCommand": "bundle install || gem install rspec rubocop"
+  "postCreateCommand": "bundle install || gem install rspec rubocop irb"
 }

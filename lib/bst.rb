@@ -32,9 +32,18 @@ class Tree
     return to_enum(:level_order_rec) unless block_given?
     return if node.nil?
 
-    yield node if block_given?
+    yield node
     level_order_rec(node.left, &block)
     level_order_rec(node.right, &block)
+  end
+
+  def inorder(node = @root, &block)
+    return to_enum(:inorder) unless block_given?
+    return if node.nil?
+
+    inorder(node.left, &block)
+    yield node
+    inorder(node.right, &block)
   end
 
   def include?(value)
@@ -57,26 +66,24 @@ class Tree
     end
   end
 
-  def delete(value, node = @root, parent = nil)
+  def delete(value, node = @root)
     return unless include?(value)
+    return if node.nil?
 
-    node, parent = find_node(value, node, parent)
-
-    return unless parent
-
-    if node.left && node.right
-      replacement = level_order(node.right).min
-      node == parent.left ? parent.left = replacement : parent.right = replacement
-      replacement.left = node.left
-      replacement.right = node.right
-      delete(replacement.data, node, parent)
-    elsif node.left && !node.right
-      node == parent.left ? parent.left = node.left : parent.right = node.left
-    elsif !node.left && node.right
-      node == parent.left ? parent.left = node.right : parent.right = node.right
+    if node.data > value
+      node.left = delete(value, node.left)
+    elsif node.data < value
+      node.right = delete(value, node.right)
     else
-      node == parent.left ? parent.left = nil : parent.right = nil
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
+
+      replacement = find_replacement(node)
+      node.data = replacement.data
+      node.right = delete(replacement.data, node.right)
     end
+
+    node
   end
 
   private
@@ -97,5 +104,11 @@ class Tree
     else
       find_node(value, node.right, node)
     end
+  end
+
+  def find_replacement(node)
+    node = node.right
+    node = node.left until node.nil? || node.left.nil?
+    node
   end
 end
