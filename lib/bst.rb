@@ -130,6 +130,12 @@ class Tree
     balanced && balanced?(node.left) && balanced?(node.right)
   end
 
+  def rebalance
+    nodes = []
+    inorder { |node| nodes << node.data }
+    initialize(nodes)
+  end
+
   private
 
   def build_tree(array, start_index = 0, end_index = (array.size - 1))
