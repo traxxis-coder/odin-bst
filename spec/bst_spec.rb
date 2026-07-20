@@ -182,4 +182,54 @@ describe Tree do
       expect(deep_tree.depth(0)).to be nil
     end
   end
+
+  describe '#balanced?' do
+    subject(:balanced_tree) { described_class.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]) }
+
+    it 'returns true for a balanced tree' do
+      expect(balanced_tree).to be_balanced
+    end
+
+    it 'returns false for an imbalanced tree' do
+      balanced_tree.insert(14)
+      balanced_tree.insert(15)
+      balanced_tree.insert(16)
+      balanced_tree.insert(-1)
+      balanced_tree.insert(-2)
+      balanced_tree.insert(-3)
+      expect(balanced_tree).not_to be_balanced
+    end
+
+    it 'returns true for a one node tree' do
+      tiny_tree = described_class.new([1])
+      expect(tiny_tree).to be_balanced
+    end
+
+    it 'returns true for an empty tree' do
+      empty_tree = described_class.new([nil])
+      expect(empty_tree).to be_balanced
+    end
+
+    it 'returns false for a linear tree' do
+      branch = described_class.new([1])
+      branch.insert(2)
+      branch.insert(3)
+      branch.insert(4)
+      expect(branch).not_to be_balanced
+    end
+  end
+
+  describe '#rebalance' do
+    subject(:imbalanced_tree) { described_class.new([1]) }
+    before do
+      imbalanced_tree.insert(2)
+      imbalanced_tree.insert(3)
+      imbalanced_tree.insert(4)
+    end
+
+    it 'makes the tree balanced' do
+      imbalanced_tree.rebalance
+      expect(imbalanced_tree).to be_balanced
+    end
+  end
 end

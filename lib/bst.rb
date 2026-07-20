@@ -122,6 +122,14 @@ class Tree
     end
   end
 
+  def balanced?(node = @root)
+    return true if node.nil?
+
+    balanced = (-1..1).include?(measure_height(node.left) - measure_height(node.right))
+
+    balanced && balanced?(node.left) && balanced?(node.right)
+  end
+
   private
 
   def build_tree(array, start_index = 0, end_index = (array.size - 1))
@@ -149,7 +157,7 @@ class Tree
   end
 
   def measure_height(node, count = 0, array = [])
-    return array.push(count - 1) if node.nil?
+    return array.push(count - 1).max if node.nil?
 
     measure_height(node.left, count + 1, array)
     measure_height(node.right, count + 1, array)
