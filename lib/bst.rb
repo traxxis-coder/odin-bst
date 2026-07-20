@@ -104,6 +104,13 @@ class Tree
     node
   end
 
+  def height(value)
+    return nil unless include?(value)
+
+    node = find_node(value)
+    measure_height(node).max
+  end
+
   private
 
   def build_tree(array, start_index = 0, end_index = (array.size - 1))
@@ -114,13 +121,13 @@ class Tree
              build_tree(array, mid_index + 1, end_index))
   end
 
-  def find_node(value, node = @root, parent = nil)
-    return [node, parent] if node.data == value
+  def find_node(value, node = @root)
+    return node if node.data == value
 
     if node.data > value
-      find_node(value, node.left, node)
+      find_node(value, node.left)
     else
-      find_node(value, node.right, node)
+      find_node(value, node.right)
     end
   end
 
@@ -128,5 +135,14 @@ class Tree
     node = node.right
     node = node.left until node.nil? || node.left.nil?
     node
+  end
+
+  def measure_height(node, count = 0, array = [])
+    return array.push(count - 1) if node.nil?
+
+    measure_height(node.left, count + 1, array)
+    measure_height(node.right, count + 1, array)
+
+    array
   end
 end

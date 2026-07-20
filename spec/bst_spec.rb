@@ -158,4 +158,16 @@ describe Tree do
       expect(actual).to eq(expected)
     end
   end
+
+  describe '#height' do
+    subject(:high_tree) { described_class.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]) }
+
+    it 'returns the highest number of edges to reach a leaf from the given value' do
+      expect(high_tree.height(3)).to eq 2
+    end
+
+    it 'returns nil if the tree doesn\'t include the value' do
+      expect(high_tree.height(0)).to be nil
+    end
+  end
 end
