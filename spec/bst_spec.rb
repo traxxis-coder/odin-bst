@@ -124,4 +124,38 @@ describe Tree do
       expect(actual).to eq(expected)
     end
   end
+
+  describe '#preorder' do
+    subject(:preordered_tree) { described_class.new([5, 6, 2, 1, 9]) }
+
+    it 'traverses the nodes in order and yields each to a block' do
+      expected = [5, 1, 2, 6, 9]
+      actual = []
+      preordered_tree.preorder { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+
+    it 'returns an Enumerator if no block biven' do
+      expected = [10, 2, 4, 12, 18]
+      actual = preordered_tree.preorder.map { |n| n.data * 2 }
+      expect(actual).to eq(expected)
+    end
+  end
+
+  describe '#postorder' do
+    subject(:postordered_tree) { described_class.new([5, 6, 2, 1, 9]) }
+
+    it 'traverses the nodes in order and yields each to a block' do
+      expected = [2, 1, 9, 6, 5]
+      actual = []
+      postordered_tree.postorder { |node| actual << node.data }
+      expect(actual).to eq(expected)
+    end
+
+    it 'returns an Enumerator if no block biven' do
+      expected = [4, 2, 18, 12, 10]
+      actual = postordered_tree.postorder.map { |n| n.data * 2 }
+      expect(actual).to eq(expected)
+    end
+  end
 end

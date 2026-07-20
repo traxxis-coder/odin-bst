@@ -46,6 +46,24 @@ class Tree
     inorder(node.right, &block)
   end
 
+  def preorder(node = @root, &block)
+    return to_enum(:preorder) unless block_given?
+    return if node.nil?
+
+    yield node
+    preorder(node.left, &block)
+    preorder(node.right, &block)
+  end
+
+  def postorder(node = @root, &block)
+    return to_enum(:postorder) unless block_given?
+    return if node.nil?
+
+    postorder(node.left, &block)
+    postorder(node.right, &block)
+    yield node
+  end
+
   def include?(value)
     level_order.any? { |node| node.data == value }
   end
